@@ -59,6 +59,11 @@ const String geraldo = 'geraldo';
 // --- Categories ---
 const List<String> categories = ['Towers', 'Heroes', 'Bloons'];
 const List<String> classes = ['All', 'Primary', 'Military', 'Magic', 'Support'];
+const List<String> bloonPropertiesForExpansion = [
+  'variants',
+  'children',
+  'parents',
+];
 
 enum StatesType {
   initial,
