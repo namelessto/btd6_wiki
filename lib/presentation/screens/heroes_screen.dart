@@ -76,15 +76,13 @@ class HeroesView extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      print('Passed ${hero.name} id');
                       context.read<HeroCubit>().setHero(hero.id);
                       try {
                         context.goNamed(
                           'hero_view',
                         );
                       } on Exception catch (e) {
-                        // TODO
-                        print('error line 98 - $e');
+                        // TODO add error page
                       }
                     },
                   ),

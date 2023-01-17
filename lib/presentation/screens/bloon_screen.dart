@@ -34,15 +34,16 @@ class BloonView extends StatelessWidget {
                     NetworkImage bloonImage = state.bloonImages.first;
                     return SingleChildScrollView(
                       padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.15),
+                          horizontal: MediaQuery.of(context).size.width * 0.1),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(15),
                             child: Center(
                               child: Image(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
                                 image: bloonImage,
                               ),
                             ),

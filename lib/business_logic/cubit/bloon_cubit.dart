@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:btd6_wiki/business_logic/cubit/bloons_cubit.dart';
 import 'package:btd6_wiki/data/models/bloon.dart';
 import 'package:btd6_wiki/data/repositories/btd_repo.dart';
 import 'package:equatable/equatable.dart';
@@ -82,18 +81,18 @@ class BloonCubit extends Cubit<BloonState> {
               btdRepo.fetchBloonVariantsImages(bloon.id, bloon.variants));
         }
 
-        List<Bloon> children = [];
-        List<NetworkImage> childrenImages = [];
+        //List<Bloon> children = [];
+        //List<NetworkImage> childrenImages = [];
         //TODO implement children
         if (bloon.children.isNotEmpty) {}
 
-        List<Bloon> parents = [];
-        List<NetworkImage> parentsImages = [];
+        //List<Bloon> parents = [];
+        //List<NetworkImage> parentsImages = [];
         //TODO implement parents
         if (bloon.parents.isNotEmpty) {}
       }
     } on Exception catch (e) {
-      print(e);
+      // TODO add error page
     }
   }
 }

@@ -1,6 +1,9 @@
+import 'package:btd6_wiki/business_logic/cubit/bloon_cubit.dart';
 import 'package:btd6_wiki/data/models/bloon.dart';
 import 'package:btd6_wiki/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class BloonPropertyExpansionTile extends StatelessWidget {
   const BloonPropertyExpansionTile({
@@ -22,6 +25,9 @@ class BloonPropertyExpansionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 8),
+        childrenPadding:
+            const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         title: Text(
           title,
           style: Theme.of(context).textTheme.bodyLarge,
@@ -29,9 +35,9 @@ class BloonPropertyExpansionTile extends StatelessWidget {
         children: [
           GridView.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 15,
-              maxCrossAxisExtent: 200,
+              crossAxisSpacing: 5,
+              maxCrossAxisExtent: 100,
+              childAspectRatio: 1 / 1.77,
             ),
             primary: false,
             shrinkWrap: true,
@@ -42,15 +48,39 @@ class BloonPropertyExpansionTile extends StatelessWidget {
                 var image = images.elementAt(index + 1);
                 return _property(bloonProperty, image, context);
               } else if (property == bloonPropertiesForExpansion[1]) {
-                Bloon child = bloonProperties.elementAt(index);
+                Bloon bloon = bloonProperties.elementAt(index);
                 var image = images.elementAt(index);
                 int? childCount = count.elementAt(index);
-                String text = '${child.name} x $childCount';
-                return _property(text, image, context);
+                String text = '${bloon.name} x $childCount';
+                return InkWell(
+                  child: _property(text, image, context),
+                  onTap: () {
+                    context.read<BloonCubit>().setBloonFromAPI(bloon.id);
+                    try {
+                      context.pushReplacementNamed(
+                        'bloon_view',
+                      );
+                    } on Exception catch (e) {
+                      // TODO add error page
+                    }
+                  },
+                );
               } else if (property == bloonPropertiesForExpansion[2]) {
-                Bloon parent = bloonProperties.elementAt(index);
+                Bloon bloon = bloonProperties.elementAt(index);
                 var image = images.elementAt(index);
-                return _property(parent.name, image, context);
+                return InkWell(
+                  child: _property(bloon.name, image, context),
+                  onTap: () {
+                    context.read<BloonCubit>().setBloonFromAPI(bloon.id);
+                    try {
+                      context.pushReplacementNamed(
+                        'bloon_view',
+                      );
+                    } on Exception catch (e) {
+                      // TODO add error page
+                    }
+                  },
+                );
               } else {
                 return Container();
               }
@@ -63,7 +93,6 @@ class BloonPropertyExpansionTile extends StatelessWidget {
 
   _property(String text, NetworkImage image, BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
@@ -78,9 +107,9 @@ class BloonPropertyExpansionTile extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.bodyMedium,
               softWrap: true,
-              maxLines: 2,
+              maxLines: 3,
             ),
           ),
         ),

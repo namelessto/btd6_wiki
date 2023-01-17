@@ -19,8 +19,7 @@ class HeroesCubit extends Cubit<HeroesState> {
       List<NetworkImage> images = btdRepo.fetchBaseHeroesImages(ids);
       emit(HeroesState(heroes: heroes, baseImages: images));
     } on Exception catch (e) {
-      // TODO
-      print('$e in heroes cubit all towers');
+      // TODO add error page
     }
   }
 }

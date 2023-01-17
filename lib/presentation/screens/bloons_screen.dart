@@ -47,10 +47,10 @@ class BloonsView extends StatelessWidget {
                   GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 7,
+                      //crossAxisSpacing: 5,
                       maxCrossAxisExtent: 300,
-                      childAspectRatio: 2.3 / 1,
+                      childAspectRatio: 2.4 / 1,
                     ),
                     shrinkWrap: true,
                     primary: false,
@@ -62,46 +62,45 @@ class BloonsView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         child: Card(
                           elevation: 4,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 2,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 10,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 3),
                                   child: Image(
                                     image: image,
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          bloon.name,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                          softWrap: false,
-                                          overflow: TextOverflow.fade,
-                                        ),
-                                        Text(
-                                          bloon.type,
-                                          softWrap: false,
-                                          overflow: TextOverflow.fade,
-                                        ),
-                                      ],
-                                    ),
+                              ),
+                              Expanded(
+                                flex: 23,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 7),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        bloon.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                        softWrap: false,
+                                        overflow: TextOverflow.fade,
+                                      ),
+                                      Text(
+                                        bloon.type,
+                                        softWrap: false,
+                                        overflow: TextOverflow.fade,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                         onTap: () {
@@ -113,8 +112,7 @@ class BloonsView extends StatelessWidget {
                               'bloon_view',
                             );
                           } on Exception catch (e) {
-                            // TODO
-                            print('error line 98 - $e');
+                            // TODO add error page
                           }
                         },
                       );
@@ -195,8 +193,7 @@ class BloonsView extends StatelessWidget {
                               'hero_view',
                             );
                           } on Exception catch (e) {
-                            // TODO
-                            print('error line 98 - $e');
+                            // TODO add error page
                           }
                         },
                       );

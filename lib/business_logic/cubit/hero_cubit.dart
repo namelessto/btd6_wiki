@@ -47,7 +47,7 @@ class HeroCubit extends Cubit<HeroState> {
         _id = hero.id;
       }
     } on Exception catch (e) {
-      print('$e in hero cubit');
+      // TODO add error page
 
       emit(HeroErrorState());
     }

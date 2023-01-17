@@ -106,8 +106,7 @@ class TowersView extends StatelessWidget {
                           queryParams: {'type': type},
                         );
                       } on Exception catch (e) {
-                        // TODO
-                        print('error line 98 - $e');
+                        // TODO add error page
                       }
                     },
                   ),

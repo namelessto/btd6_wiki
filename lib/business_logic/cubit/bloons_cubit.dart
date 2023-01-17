@@ -36,7 +36,7 @@ class BloonsCubit extends Cubit<BloonsState> {
         bossesImages: bossesImages,
       ));
     } on Exception catch (e) {
-      print(e);
+      // TODO add error page
     }
   }
 }

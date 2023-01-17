@@ -59,10 +59,9 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: GridView(
-        padding: const EdgeInsets.all(10),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 650, // number of columns
-          //childAspectRatio: 1 / 1.1, // aspect ratio of the tiles
+          maxCrossAxisExtent: 400, // number of columns
+          childAspectRatio: 1 / 1.15, // aspect ratio of the tiles
         ),
         children: [
           InkWell(
@@ -127,20 +126,21 @@ class MenuCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            flex: 3,
+            flex: 8,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+              padding: const EdgeInsets.only(top: 15),
               child: Image(
                 image: image,
               ),
             ),
           ),
           Expanded(
-            flex: 1,
-            child: Center(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 5),
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context).textTheme.headline3,
               ),
             ),
           ),

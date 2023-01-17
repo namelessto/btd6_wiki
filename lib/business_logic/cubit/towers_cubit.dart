@@ -19,8 +19,8 @@ class TowersCubit extends Cubit<TowersState> {
       List<NetworkImage> images = btdRepo.fetchBaseTowersImages(ids);
       emit(TowersState(towers: towers, baseImages: images));
     } on Exception catch (e) {
-      // TODO
-      print('$e in towers cubit all towers');
+      // TODO add error page
+
     }
   }
 
