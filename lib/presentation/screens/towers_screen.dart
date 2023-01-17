@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/tower_cubit.dart';
 import 'package:btd6_wiki/business_logic/cubit/towers_cubit.dart';
 import 'package:btd6_wiki/data/models/tower.dart';
@@ -37,61 +38,71 @@ class TowersView extends StatelessWidget {
               towers = state.towers;
               images = state.baseImages;
             }
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 600, // number of columns
-                childAspectRatio: 2 / 1, // aspect ratio of the tiles
-              ),
-              itemCount: towers.length,
-              itemBuilder: (context, index) {
-                final tower = towers.elementAt(index);
-                final image = images.elementAt(index);
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  mainAxisSpacing: 0,
+                  maxCrossAxisExtent: 600, // number of columns
+                  childAspectRatio: 2.7 / 1, // aspect ratio of the tiles
+                ),
+                itemCount: towers.length,
+                itemBuilder: (context, index) {
+                  final tower = towers.elementAt(index);
+                  final image = images.elementAt(index);
+                  return InkWell(
                     borderRadius: BorderRadius.circular(8),
-                    child: Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Card(
+                        elevation: 5,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Expanded(
-                              flex: 3,
-                              child: Image(
-                                image: image,
+                              flex: 7,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Image(
+                                  image: image,
+                                ),
                               ),
                             ),
                             Expanded(
-                              flex: 5,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      tower.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
+                              flex: 18,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 20,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 13,
+                                      ),
+                                      child: AutoSizeText(
+                                        tower.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
+                                      ),
                                     ),
-                                    Text(
-                                      tower.type,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
+                                  ),
+                                  Expanded(
+                                    flex: 35,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 10,
+                                        right: 10,
+                                      ),
+                                      child: AutoSizeText(
+                                        tower.description,
+                                        wrapWords: false,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                    Text(
-                                      tower.description,
-                                      softWrap: true,
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -109,9 +120,9 @@ class TowersView extends StatelessWidget {
                         // TODO add error page
                       }
                     },
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           } else {
             return const Text('error');

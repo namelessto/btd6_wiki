@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/tower_cubit.dart';
+import 'package:btd6_wiki/presentation/widgets/display_property_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -46,128 +48,114 @@ class TowerView extends StatelessWidget {
             final towerImage = state.towerImage;
             final paths = state.towerPaths;
             final pathsImages = state.pathsImages;
-            return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              children: [
-                Image(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  image: towerImage,
-                ),
-                const Divider(),
-                Text(
-                  tower.name,
-                  style: Theme.of(context).textTheme.displayMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: Text(
-                    tower.description,
-                    style: Theme.of(context).textTheme.bodyLarge,
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image(
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    image: towerImage,
                   ),
-                ),
-                const Divider(),
-                Center(
-                  child: Text(
-                    'Type - ${tower.type}',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  AutoSizeText(
+                    tower.name,
+                    style: Theme.of(context).textTheme.headline1,
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox(height: 6),
-                Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        'Cost',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Easy: ${tower.cost.easy} | Medium: ${tower.cost.medium}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    Text(
-                      'Hard: ${tower.cost.hard} | Impoppable: ${tower.cost.impoppable}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Stats',
+                  const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: AutoSizeText(
+                      tower.description,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    Text(
-                      'Damage: ${tower.stats.damage} | Pierce: ${tower.stats.pierce} | Range: ${tower.stats.range}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    Text(
-                      'Attack-speed: ${tower.stats.attackSpeed} | Type: ${tower.stats.type}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-                const Divider(),
-                GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                    crossAxisCount: 3,
-                    childAspectRatio: 1 / 1.3,
                   ),
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: pathsImages.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                  const Divider(),
+                  AutoSizeText(
+                    'Type - ${tower.type}',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 15),
+                  DisplayPropertyWidget(
+                    title: 'Cost',
+                    line1:
+                        'Easy: ${tower.cost.easy} | Medium: ${tower.cost.medium}',
+                    line2:
+                        'Hard: ${tower.cost.hard} | Impoppable: ${tower.cost.impoppable}',
+                  ),
+                  const SizedBox(height: 15),
+                  DisplayPropertyWidget(
+                    title: 'Stats',
+                    line1:
+                        'Damage: ${tower.stats.damage} | Pierce: ${tower.stats.pierce} | Range: ${tower.stats.range}',
+                    line2:
+                        'Attack-speed: ${tower.stats.attackSpeed} | Type: ${tower.stats.type}',
+                  ),
+                  const Divider(),
+                  GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1 / 1.6,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: pathsImages.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        child: Card(
                           child: Column(
-                            mainAxisSize: MainAxisSize.max,
+                            mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Expanded(
-                                flex: 4,
-                                child: Image(
-                                  image: pathsImages[index],
+                                flex: 85,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: Image(
+                                    image: pathsImages[index],
+                                  ),
                                 ),
                               ),
                               Expanded(
-                                flex: 1,
+                                flex: 50,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    paths[index].name,
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 5,
+                                  ),
+                                  child: Center(
+                                    child: AutoSizeText(
+                                      paths[index].name,
+                                      textAlign: TextAlign.center,
+                                      wrapWords: false,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                      onTap: () {
-                        context.goNamed(
-                          'tower_path_view',
-                          queryParams: {
-                            'type': type,
-                            'pathIndex': index.toString(),
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
+                        onTap: () {
+                          context.goNamed(
+                            'tower_path_view',
+                            queryParams: {
+                              'type': type,
+                              'pathIndex': index.toString(),
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             );
           } else {
             return Container();
