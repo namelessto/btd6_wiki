@@ -1,4 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/hero_cubit.dart';
+import 'package:btd6_wiki/data/models/hero_tower.dart';
+import 'package:btd6_wiki/presentation/widgets/display_base_info_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/display_property_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,112 +43,130 @@ class HeroView extends StatelessWidget {
             final hero = state.hero;
             final heroImages = state.heroImages;
             return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               children: [
-                Image(
-                  //height: MediaQuery.of(context).size.height * 0.4,
+                DisplayBaseInfoWidget(
                   image: heroImages[0][0],
-                ),
-                const Divider(),
-                Text(
-                  hero.name,
-                  style: Theme.of(context).textTheme.displayMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: Text(
-                    hero.description,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Cost',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    Text(
+                  mainTitle: hero.name,
+                  description: hero.description,
+                  prop1Title: 'Cost',
+                  prop1Line1:
                       'Easy: ${hero.cost.easy} | Medium: ${hero.cost.medium}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    Text(
+                  prop1Line2:
                       'Hard: ${hero.cost.hard} | Impoppable: ${hero.cost.impoppable}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Stats',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    Text(
+                  prop2Title: 'Stats',
+                  prop2Line1:
                       'Damage: ${hero.stats.damage} | Pierce: ${hero.stats.pierce} | Range: ${hero.stats.range}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    Text(
+                  prop2Line2:
                       'Attack-speed: ${hero.stats.attackSpeed} | Type: ${hero.stats.type}',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
                 ),
                 const Divider(),
                 GridView.builder(
                   shrinkWrap: true,
                   primary: false,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 400,
-                    childAspectRatio: 1 / 1.6,
+                    maxCrossAxisExtent: 450,
+                    childAspectRatio: 1 / 2,
                   ),
                   itemCount: hero.levels.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Level ${index + 1}',
-                              style: Theme.of(context).textTheme.displaySmall,
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: shouldShowImage(hero, index)
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Image(
+                                            image: heroImages[0]
+                                                [imageIndex(hero, index)],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                            child: AutoSizeText(
+                                              'Image at level ${index + 1}',
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
                             ),
-                            const SizedBox(height: 5),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 23),
-                              child: Text(
-                                hero.levels[index].description,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: Center(
+                                      child: AutoSizeText(
+                                        'Level ${index + 1}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: AutoSizeText(
+                                        hero.levels[index].description,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                        wrapWords: false,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: AutoSizeText(
+                                      'XP needed: ${hero.levels[index].xp}',
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                      wrapWords: false,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: DisplayPropertyWidget(
+                                      title: 'Rounds',
+                                      line1:
+                                          'Easy: ${hero.levels[index].rounds.easy} | Medium: ${hero.levels[index].rounds.medium}',
+                                      line2:
+                                          'Hard: ${hero.levels[index].rounds.hard} | Impoppable: ${hero.levels[index].rounds.impoppable}',
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            Text(
-                              'XP needed: ${hero.levels[index].xp}',
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              'Rounds:',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              'Easy: ${hero.levels[index].rounds.easy} | Medium: ${hero.levels[index].rounds.medium}',
-                            ),
-                            Text(
-                              'Hard: ${hero.levels[index].rounds.hard} | Impoppable: ${hero.levels[index].rounds.impoppable}',
-                            ),
-                            const SizedBox(height: 5),
-                            Expanded(
-                              child: _imageOnChange(state, index),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   },
                 ),
@@ -159,14 +181,17 @@ class HeroView extends StatelessWidget {
   }
 }
 
-Widget _imageOnChange(HeroLoadedState state, int index) {
-  if (index == 0) {
-    return Image(image: state.heroImages[0][0]);
-  }
-  if (state.hero.skinChange.contains(index + 1)) {
-    int imageIndex = state.hero.skinChange.indexOf(index + 1) + 1;
-    return Image(image: state.heroImages[0].elementAt(imageIndex));
+bool shouldShowImage(HeroTower hero, int index) {
+  if (index == 0 || hero.skinChange.contains(index + 1)) {
+    return true;
   } else {
-    return Container();
+    return false;
   }
+}
+
+int imageIndex(HeroTower hero, int index) {
+  if (index == 0) {
+    return 0;
+  }
+  return hero.skinChange.indexOf(index + 1) + 1;
 }

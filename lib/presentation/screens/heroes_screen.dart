@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/hero_cubit.dart';
 import 'package:btd6_wiki/business_logic/cubit/heroes_cubit.dart';
 import 'package:btd6_wiki/data/models/hero_tower.dart';
@@ -42,13 +43,13 @@ class HeroesView extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Expanded(
-                              flex: 2,
+                              flex: 4,
                               child: Image(
                                 image: image,
                               ),
                             ),
                             Expanded(
-                              flex: 3,
+                              flex: 9,
                               child: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Column(
@@ -59,9 +60,9 @@ class HeroesView extends StatelessWidget {
                                       hero.name,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleMedium,
+                                          .titleLarge,
                                     ),
-                                    Text(
+                                    AutoSizeText(
                                       hero.description,
                                       //softWrap: true,
                                       maxLines: 4,

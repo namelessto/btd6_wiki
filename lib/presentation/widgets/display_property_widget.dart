@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:btd6_wiki/data/models/common.dart';
 import 'package:flutter/material.dart';
 
 class DisplayPropertyWidget extends StatelessWidget {
@@ -17,25 +16,26 @@ class DisplayPropertyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(5),
+        Flexible(
+          flex: 1,
+          child: Center(
             child: AutoSizeText(
               title,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(5),
+        Flexible(
+          flex: 1,
           child: AutoSizeText(
             line1,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(5),
+        Flexible(
+          flex: 1,
           child: AutoSizeText(
             line2,
             style: Theme.of(context).textTheme.bodyLarge,
