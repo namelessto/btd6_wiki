@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:btd6_wiki/presentation/widgets/display_property_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_property_widget.dart';
 import 'package:flutter/material.dart';
 
-class DisplayBaseInfoWidget extends StatelessWidget {
-  const DisplayBaseInfoWidget({
+class GenericInfoWidget extends StatelessWidget {
+  const GenericInfoWidget({
     Key? key,
     required this.image,
     required this.mainTitle,
@@ -40,10 +40,11 @@ class DisplayBaseInfoWidget extends StatelessWidget {
           mainTitle,
           style: Theme.of(context).textTheme.headline1,
           textAlign: TextAlign.center,
+          wrapWords: false,
         ),
         const Divider(),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: AutoSizeText(
             description,
             style: Theme.of(context).textTheme.titleLarge,
@@ -57,14 +58,14 @@ class DisplayBaseInfoWidget extends StatelessWidget {
               )
             : Container(),
         const SizedBox(height: 15),
-        DisplayPropertyWidget(
+        GenericPropertyWidget(
           title: prop1Title,
           line1: prop1Line1,
           line2: prop1Line2,
         ),
         const SizedBox(height: 15),
         prop2Title != null
-            ? DisplayPropertyWidget(
+            ? GenericPropertyWidget(
                 title: prop2Title!,
                 line1: prop2Line1!,
                 line2: prop2Line2!,

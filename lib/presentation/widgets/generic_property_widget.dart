@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class DisplayPropertyWidget extends StatelessWidget {
-  const DisplayPropertyWidget({
+class GenericPropertyWidget extends StatelessWidget {
+  const GenericPropertyWidget({
     Key? key,
     required this.title,
     required this.line1,
@@ -15,11 +15,14 @@ class DisplayPropertyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final group = AutoSizeGroup();
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Flexible(
-          flex: 1,
+          flex: 2,
           child: Center(
             child: AutoSizeText(
               title,
@@ -31,14 +34,22 @@ class DisplayPropertyWidget extends StatelessWidget {
           flex: 1,
           child: AutoSizeText(
             line1,
+            group: group,
             style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
+            wrapWords: false,
+            softWrap: false,
           ),
         ),
         Flexible(
           flex: 1,
           child: AutoSizeText(
             line2,
+            group: group,
             style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
+            wrapWords: false,
+            softWrap: false,
           ),
         ),
       ],

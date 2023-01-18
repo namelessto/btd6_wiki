@@ -1,8 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/hero_cubit.dart';
 import 'package:btd6_wiki/data/models/hero_tower.dart';
-import 'package:btd6_wiki/presentation/widgets/display_base_info_widget.dart';
-import 'package:btd6_wiki/presentation/widgets/display_property_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_info_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_property_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_list_expansion_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,7 +45,7 @@ class HeroView extends StatelessWidget {
             final heroImages = state.heroImages;
             return ListView(
               children: [
-                DisplayBaseInfoWidget(
+                GenericInfoWidget(
                   image: heroImages[0][0],
                   mainTitle: hero.name,
                   description: hero.description,
@@ -59,6 +60,16 @@ class HeroView extends StatelessWidget {
                   prop2Line2:
                       'Attack-speed: ${hero.stats.attackSpeed} | Type: ${hero.stats.type}',
                 ),
+                // hero.stats.special != null
+                //     ? ListView.builder(
+                //         primary: false,
+                //         shrinkWrap: true,
+                //         itemCount: hero.stats.special!.length,
+                //         itemBuilder: (context, index) {
+                //           return Text(hero.stats.special![index].name);
+                //         },
+                //       )
+                //     : Container(),
                 const Divider(),
                 GridView.builder(
                   shrinkWrap: true,
@@ -153,13 +164,17 @@ class HeroView extends StatelessWidget {
                                   const SizedBox(height: 5),
                                   Flexible(
                                     fit: FlexFit.loose,
-                                    child: DisplayPropertyWidget(
+                                    child: GenericPropertyWidget(
                                       title: 'Rounds',
                                       line1:
                                           'Easy: ${hero.levels[index].rounds.easy} | Medium: ${hero.levels[index].rounds.medium}',
                                       line2:
                                           'Hard: ${hero.levels[index].rounds.hard} | Impoppable: ${hero.levels[index].rounds.impoppable}',
                                     ),
+                                  ),
+                                  GenericListExpansionWidget(
+                                    effects: hero.levels[index].effects,
+                                    title: 'Effects',
                                   ),
                                 ],
                               ),

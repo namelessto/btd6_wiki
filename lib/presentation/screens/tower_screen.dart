@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/tower_cubit.dart';
 import 'package:btd6_wiki/data/models/tower.dart';
-import 'package:btd6_wiki/presentation/widgets/display_base_info_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -49,11 +49,13 @@ class TowerView extends StatelessWidget {
             final towerImage = state.towerImage;
             final paths = state.towerPaths;
             final pathsImages = state.pathsImages;
+            final group1 = AutoSizeGroup();
+
             return SingleChildScrollView(
               padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
               child: Column(
                 children: [
-                  DisplayBaseInfoWidget(
+                  GenericInfoWidget(
                     image: towerImage,
                     mainTitle: tower.name,
                     description: tower.description,
@@ -97,20 +99,22 @@ class TowerView extends StatelessWidget {
                                 ),
                               ),
                               Expanded(
-                                flex: 50,
+                                flex: 55,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 10,
-                                    horizontal: 5,
+                                    horizontal: 10,
                                   ),
                                   child: Center(
                                     child: AutoSizeText(
                                       paths[index].name,
+                                      group: group1,
                                       textAlign: TextAlign.center,
                                       wrapWords: false,
+                                      minFontSize: 9,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .titleMedium,
+                                          .titleLarge,
                                     ),
                                   ),
                                 ),

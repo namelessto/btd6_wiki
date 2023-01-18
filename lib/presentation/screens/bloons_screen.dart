@@ -2,6 +2,7 @@ import 'package:btd6_wiki/business_logic/cubit/bloon_cubit.dart';
 import 'package:btd6_wiki/business_logic/cubit/bloons_cubit.dart';
 import 'package:btd6_wiki/data/models/bloon.dart';
 import 'package:btd6_wiki/data/models/boss.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -47,10 +48,11 @@ class BloonsView extends StatelessWidget {
                   GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                      mainAxisSpacing: 7,
-                      //crossAxisSpacing: 5,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
                       maxCrossAxisExtent: 300,
-                      childAspectRatio: 2.4 / 1,
+                      mainAxisExtent: 100,
+                      childAspectRatio: 2 / 1,
                     ),
                     shrinkWrap: true,
                     primary: false,
@@ -58,53 +60,13 @@ class BloonsView extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final bloon = bloons.elementAt(index);
                       final image = bloonsImages.elementAt(index);
-                      return InkWell(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Card(
-                          elevation: 4,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 10,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 3),
-                                  child: Image(
-                                    image: image,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 23,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 7),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        bloon.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                        softWrap: false,
-                                        overflow: TextOverflow.fade,
-                                      ),
-                                      Text(
-                                        bloon.type,
-                                        softWrap: false,
-                                        overflow: TextOverflow.fade,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          // print('Passed ${bloon.name} id');
+                      return GenericCard(
+                        image: image,
+                        title: bloon.name,
+                        description: 'Type: ${bloon.type}',
+                        maxDescriptionLines: 1,
+                        callback: () {
+                          print('Passed ${bloon.name} id');
                           context.read<BloonCubit>().setBloonFromAPI(bloon.id);
 
                           try {
@@ -113,6 +75,7 @@ class BloonsView extends StatelessWidget {
                             );
                           } on Exception catch (e) {
                             // TODO add error page
+                            print(e);
                           }
                         },
                       );
@@ -206,6 +169,61 @@ class BloonsView extends StatelessWidget {
             return const Text('Error');
           }
         },
+      ),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    Key? key,
+    required this.image,
+    required this.bloon,
+  }) : super(key: key);
+
+  final NetworkImage image;
+  final Bloon bloon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Expanded(
+            flex: 10,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 3),
+              child: Image(
+                image: image,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 23,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 7),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    bloon.name,
+                    style: Theme.of(context).textTheme.titleMedium,
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
+                  ),
+                  Text(
+                    bloon.type,
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

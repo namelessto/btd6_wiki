@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/tower_cubit.dart';
 import 'package:btd6_wiki/data/models/tower.dart';
-import 'package:btd6_wiki/presentation/widgets/display_property_widget.dart';
-import 'package:btd6_wiki/presentation/widgets/tower_path_expansion_tile.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_property_widget.dart';
+import 'package:btd6_wiki/presentation/widgets/generic_list_expansion_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,14 +54,15 @@ class TowerPathView extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  DisplayPropertyWidget(
+                  GenericPropertyWidget(
                     title: 'Cost',
                     line1:
                         'Easy: ${path.cost.easy} | Medium: ${path.cost.medium}',
                     line2:
                         'Hard: ${path.cost.hard} | Impoppable: ${path.cost.impoppable}',
                   ),
-                  PathExpansionTile(
+                  GenericListExpansionWidget(
+                    title: 'Advanced Effects',
                     effects: path.effects,
                   ),
                 ],

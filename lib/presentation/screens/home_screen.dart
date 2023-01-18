@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:btd6_wiki/business_logic/cubit/bloons_cubit.dart';
 import 'package:btd6_wiki/business_logic/cubit/heroes_cubit.dart';
 import 'package:btd6_wiki/business_logic/cubit/towers_cubit.dart';
@@ -60,9 +61,13 @@ class HomePage extends StatelessWidget {
       ),
       body: GridView(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 400, // number of columns
-          childAspectRatio: 1 / 1.15, // aspect ratio of the tiles
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 5,
+          mainAxisExtent: 220,
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 1 / 2,
         ),
+        padding: const EdgeInsets.all(10),
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(8),
@@ -93,7 +98,7 @@ class HomePage extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             child: MenuCard(
               image: BTDRepo().fetchBloonImage('bloonarius'),
-              title: 'Bloons',
+              title: 'Bloons & Bosses',
             ),
             onTap: () {
               context.read<BloonsCubit>().initialBloons();
@@ -121,26 +126,29 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 4,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        //mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            flex: 8,
+            flex: 9,
             child: Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 12),
               child: Image(
                 image: image,
               ),
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text(
+              padding: const EdgeInsets.all(10),
+              child: AutoSizeText(
                 title,
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.center,
               ),
             ),
           ),
